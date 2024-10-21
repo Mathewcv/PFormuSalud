@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D65D2118-6AB0-4C96-BBB5-9C0D311CF8BF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>FormuSalud</RootNamespace>
+    <AssemblyName>FormuSalud</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CrearCuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrearCuenta.Designer.cs">
+      <DependentUpon>CrearCuenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormulaMedica.cs" />
+    <Compile Include="GenerarFormula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarFormula.Designer.cs">
+      <DependentUpon>GenerarFormula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionBD.cs" />
+    <Compile Include="IndexMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexMedico.Designer.cs">
+      <DependentUpon>IndexMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndexPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexPaciente.Designer.cs">
+      <DependentUpon>IndexPaciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndexRecepcionista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexRecepcionista.Designer.cs">
+      <DependentUpon>IndexRecepcionista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IniciodeSesion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IniciodeSesion.Designer.cs">
+      <DependentUpon>IniciodeSesion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.cs" />
+    <EmbeddedResource Include="CrearCuenta.resx">
+      <DependentUpon>CrearCuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarFormula.resx">
+      <DependentUpon>GenerarFormula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexMedico.resx">
+      <DependentUpon>IndexMedico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexPaciente.resx">
+      <DependentUpon>IndexPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexRecepcionista.resx">
+      <DependentUpon>IndexRecepcionista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IniciodeSesion.resx">
+      <DependentUpon>IniciodeSesion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-soloblanco-Photoroom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-blanco-Photoroom.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-blanco-Photoroom.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
