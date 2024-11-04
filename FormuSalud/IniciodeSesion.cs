@@ -84,6 +84,12 @@ namespace FormuSalud
             crearCuentaForm.Show();
         }
 
-        
+        private void linkRestablecer_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Abre el formulario Reestablecer
+            Restablecer restablecerForm = new Restablecer();
+            restablecerForm.Show();
+            this.Hide(); // Opcional: oculta el formulario de inicio de sesión
+        }
     }
 }

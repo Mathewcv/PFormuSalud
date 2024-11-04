@@ -40,6 +40,7 @@
             this.btnIngresar = new System.Windows.Forms.Button();
             this.lklRegistrarse = new System.Windows.Forms.LinkLabel();
             this.picture = new System.Windows.Forms.PictureBox();
+            this.linkRestablecer = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -126,7 +127,7 @@
             this.btnIngresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(69)))), ((int)(((byte)(76)))));
             this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIngresar.ForeColor = System.Drawing.Color.White;
-            this.btnIngresar.Location = new System.Drawing.Point(58, 318);
+            this.btnIngresar.Location = new System.Drawing.Point(58, 345);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(189, 41);
             this.btnIngresar.TabIndex = 8;
@@ -137,7 +138,7 @@
             // lklRegistrarse
             // 
             this.lklRegistrarse.AutoSize = true;
-            this.lklRegistrarse.Location = new System.Drawing.Point(55, 372);
+            this.lklRegistrarse.Location = new System.Drawing.Point(55, 399);
             this.lklRegistrarse.Name = "lklRegistrarse";
             this.lklRegistrarse.Size = new System.Drawing.Size(204, 13);
             this.lklRegistrarse.TabIndex = 9;
@@ -155,12 +156,24 @@
             this.picture.TabIndex = 10;
             this.picture.TabStop = false;
             // 
+            // linkRestablecer
+            // 
+            this.linkRestablecer.AutoSize = true;
+            this.linkRestablecer.Location = new System.Drawing.Point(81, 293);
+            this.linkRestablecer.Name = "linkRestablecer";
+            this.linkRestablecer.Size = new System.Drawing.Size(132, 13);
+            this.linkRestablecer.TabIndex = 11;
+            this.linkRestablecer.TabStop = true;
+            this.linkRestablecer.Text = "¿Olvidaste tu Contraseña?";
+            this.linkRestablecer.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRestablecer_LinkClicked);
+            // 
             // IniciodeSesion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(221)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.linkRestablecer);
             this.Controls.Add(this.picture);
             this.Controls.Add(this.lklRegistrarse);
             this.Controls.Add(this.btnIngresar);
@@ -195,6 +208,7 @@
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.LinkLabel lklRegistrarse;
         private System.Windows.Forms.PictureBox picture;
+        private System.Windows.Forms.LinkLabel linkRestablecer;
     }
 }
 

@@ -25,7 +25,7 @@ namespace FormuSalud
      
         void Conectar()
         {
-            try
+            try 
             {
                 string strCon = "Data Source=Mateo\\SQLEXPRESS01;Initial Catalog=BD_PFormuSalud;Integrated Security=True;TrustServerCertificate=True";
                 conn = new SqlConnection(strCon);
@@ -281,6 +281,53 @@ namespace FormuSalud
             conn.Close();
             return paciente;
         }
+
+        public bool RestablecerContraseña(string documento, string nuevaContraseña)
+        {
+            Conectar();
+            try
+            {
+                // Verificar si el documento existe en la base de datos y obtener la contraseña actual
+                string queryVerificar = "SELECT Contraseña FROM Usuarios WHERE Documento = @documento";
+                cmd = new SqlCommand(queryVerificar, conn);
+                cmd.Parameters.AddWithValue("@documento", documento);
+
+                object resultado = cmd.ExecuteScalar();
+
+                // Si el documento no existe, retorna false
+                if (resultado == null)
+                {
+                    return false;
+                }
+
+                string contraseñaActual = resultado.ToString();
+
+                // Validar si la nueva contraseña es igual a la actual
+                if (contraseñaActual == nuevaContraseña)
+                {
+                    return false; // Retornar false si la contraseña es igual a la actual
+                }
+
+                // Actualizar la contraseña si es diferente
+                string queryActualizar = "UPDATE Usuarios SET Contraseña = @nuevaContraseña WHERE Documento = @documento";
+                cmd = new SqlCommand(queryActualizar, conn);
+                cmd.Parameters.AddWithValue("@nuevaContraseña", nuevaContraseña);
+                cmd.Parameters.AddWithValue("@documento", documento);
+                cmd.ExecuteNonQuery();
+
+                return true; // Restablecimiento exitoso
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
 
     }
 
