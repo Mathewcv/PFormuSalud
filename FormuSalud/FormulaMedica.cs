@@ -20,5 +20,8 @@ namespace FormuSalud
         public string DocumentoPaciente { get; set; }
         public string Observaciones { get; set; }
         public string Anotaciones { get; set; }
+        
+        // Nueva propiedad para la firma
+        public byte[] Firma { get; set; }
     }
 }

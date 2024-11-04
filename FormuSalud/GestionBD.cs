@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data; // Para que DataTable sea reconocido
 using System.Windows.Forms;
+using System.Drawing; // Para las Image
+using System.IO; // para el MemoryStream
 
 
 
@@ -190,11 +192,13 @@ namespace FormuSalud
 
             try
             {
-                string query = @"INSERT INTO FormulasMedicas (Paciente, Edad, NumeroHistoria, Fecha, Hora, Medico, Documento, Medicamentos, Observaciones, Anotaciones) 
+                // Consulta SQL actualizada para incluir el campo Firma
+                string query = @"INSERT INTO FormulasMedicas (Paciente, Edad, NumeroHistoria, Fecha, Hora, Medico, Documento, Medicamentos, Observaciones, Anotaciones, Firma) 
                          VALUES ((SELECT IdUsuario FROM Usuarios WHERE Documento = @DocumentoPaciente), @EdadPaciente, @NumeroHistoriaClinica, @Fecha, @Hora, 
-                                 (SELECT IdUsuario FROM Usuarios WHERE Nombre = @Doctor), @DocumentoPaciente, @Medicamentos, @Observaciones, @Anotaciones)";
+                         (SELECT IdUsuario FROM Usuarios WHERE Nombre = @Doctor), @DocumentoPaciente, @Medicamentos, @Observaciones, @Anotaciones, @Firma)";
 
                 cmd = new SqlCommand(query, conn);
+
                 cmd.Parameters.AddWithValue("@EdadPaciente", nuevaFormula.EdadPaciente);
                 cmd.Parameters.AddWithValue("@NumeroHistoriaClinica", nuevaFormula.NumeroHistoriaClinica);
                 cmd.Parameters.AddWithValue("@Fecha", nuevaFormula.Fecha);
@@ -204,6 +208,9 @@ namespace FormuSalud
                 cmd.Parameters.AddWithValue("@Medicamentos", nuevaFormula.Medicamentos);
                 cmd.Parameters.AddWithValue("@Observaciones", nuevaFormula.Observaciones);
                 cmd.Parameters.AddWithValue("@Anotaciones", nuevaFormula.Anotaciones);
+
+                // Añadir el parámetro para la firma, asegurando que se maneje el caso donde la firma es nula
+                cmd.Parameters.AddWithValue("@Firma", (object)nuevaFormula.Firma ?? DBNull.Value);
 
                 filasAfectadas = cmd.ExecuteNonQuery();
             }
@@ -218,8 +225,8 @@ namespace FormuSalud
             }
 
             return filasAfectadas; // Devuelve el número de filas afectadas
-           
         }
+
 
         public List<FormulaMedica> ObtenerFormulasMedicasPorCedula(string documentoPaciente)
         {
@@ -328,6 +335,7 @@ namespace FormuSalud
             }
         }
 
+        
 
     }
 
