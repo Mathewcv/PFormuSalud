@@ -52,6 +52,12 @@
     <Compile Include="CrearCuenta.Designer.cs">
       <DependentUpon>CrearCuenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditarFormula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarFormula.Designer.cs">
+      <DependentUpon>EditarFormula.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormulaMedica.cs" />
     <Compile Include="GenerarFormula.cs">
       <SubType>Form</SubType>
@@ -100,6 +106,9 @@
     <Compile Include="Usuario.cs" />
     <EmbeddedResource Include="CrearCuenta.resx">
       <DependentUpon>CrearCuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarFormula.resx">
+      <DependentUpon>EditarFormula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarFormula.resx">
       <DependentUpon>GenerarFormula.cs</DependentUpon>
