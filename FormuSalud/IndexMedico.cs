@@ -44,5 +44,10 @@ namespace FormuSalud
                 loginForm.Show();
             }
         }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

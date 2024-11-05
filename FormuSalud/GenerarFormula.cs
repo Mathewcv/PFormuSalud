@@ -110,7 +110,7 @@ namespace FormuSalud
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnFirmar_Click(object sender, EventArgs e)
@@ -159,9 +159,5 @@ namespace FormuSalud
         }
 
 
-
-
     }
 }
-    
-

@@ -24,10 +24,10 @@ namespace FormuSalud
         {
 
         }
-     
+
         void Conectar()
         {
-            try 
+            try
             {
                 string strCon = "Data Source=Mateo\\SQLEXPRESS01;Initial Catalog=BD_PFormuSalud;Integrated Security=True;TrustServerCertificate=True";
                 conn = new SqlConnection(strCon);
@@ -75,9 +75,9 @@ namespace FormuSalud
             int respuesta = 0;
             Conectar();
             try
-            { 
-                 string query = "INSERT INTO Usuarios (Nombre, Documento, Correo, Contraseña, Direccion, Telefono, Fecha_nac, Edad, Rol) " +
-                               "VALUES (@nombre, @documento, @correo, @contraseña, @direccion, @telefono, @fechaNac, @edad, @rol)"; 
+            {
+                string query = "INSERT INTO Usuarios (Nombre, Documento, Correo, Contraseña, Direccion, Telefono, Fecha_nac, Edad, Rol) " +
+                              "VALUES (@nombre, @documento, @correo, @contraseña, @direccion, @telefono, @fechaNac, @edad, @rol)";
                 cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@nombre", usuario.Nombre);
                 cmd.Parameters.AddWithValue("@documento", usuario.Documento);
@@ -335,12 +335,8 @@ namespace FormuSalud
             }
         }
 
-        
+
 
     }
 
 }
-           
-
-
-  

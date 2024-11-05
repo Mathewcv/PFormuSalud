@@ -86,6 +86,7 @@
             this.btnEditar.TabIndex = 23;
             this.btnEditar.Text = "Editar Fórmula Médica";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // lblEditar
             // 
