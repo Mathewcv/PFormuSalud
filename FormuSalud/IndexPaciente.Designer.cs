@@ -89,8 +89,9 @@
             this.dgvFormulas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFormulas.Location = new System.Drawing.Point(33, 135);
             this.dgvFormulas.Name = "dgvFormulas";
-            this.dgvFormulas.Size = new System.Drawing.Size(472, 69);
+            this.dgvFormulas.Size = new System.Drawing.Size(472, 226);
             this.dgvFormulas.TabIndex = 6;
+            this.dgvFormulas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFormulas_CellContentClick);
             // 
             // btnCerrar
             // 
