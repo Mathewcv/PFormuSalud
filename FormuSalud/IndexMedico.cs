@@ -13,6 +13,8 @@ namespace FormuSalud
     public partial class IndexMedico : Form
     {
         private string nombreMedico;
+        GestionBD gestionBD = new GestionBD();
+
         public IndexMedico(string nombre)
         {
             InitializeComponent();
@@ -47,7 +49,26 @@ namespace FormuSalud
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            // Verificar que el campo no esté vacío
+            if (string.IsNullOrWhiteSpace(lblEditar.Text))
+            {
+                MessageBox.Show("Por favor, ingrese el número de historia clínica.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            // Intentar cargar la fórmula médica
+            var formula = gestionBD.ObtenerFormulaPorNumeroHistoria(lblEditar.Text);
+            if (formula != null)
+            {
+                // Si se encuentra la fórmula, abrir el formulario de edición
+                EditarFormula editarForm = new EditarFormula(formula);
+                editarForm.ShowDialog();
+            }
+            else
+            {
+                // Mostrar alerta si no se encuentra la historia clínica
+                MessageBox.Show("No se encontró la historia clínica. Por favor, revise que esté bien digitada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

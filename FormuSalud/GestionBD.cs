@@ -335,6 +335,93 @@ namespace FormuSalud
             }
         }
 
+        public FormulaMedica ObtenerFormulaPorNumeroHistoria(string numeroHistoria)
+        {
+            Conectar();
+            FormulaMedica formula = null;
+
+            string query = "SELECT * FROM FormulasMedicas WHERE NumeroHistoria = @numeroHistoria";
+            cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@numeroHistoria", numeroHistoria);
+
+            reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                formula = new FormulaMedica
+                {
+                    NumeroHistoriaClinica = reader["NumeroHistoria"].ToString(),
+                    NombrePaciente = reader["Paciente"].ToString(),
+                    EdadPaciente = int.Parse(reader["Edad"].ToString()),
+                    Fecha = DateTime.Parse(reader["Fecha"].ToString()),
+                    Hora = TimeSpan.Parse(reader["Hora"].ToString()),
+                    Doctor = reader["Medico"].ToString(),
+                    DocumentoPaciente = reader["Documento"].ToString(),
+                    Medicamentos = reader["Medicamentos"].ToString(),
+                    Observaciones = reader["Observaciones"].ToString(),
+                    Anotaciones = reader["Anotaciones"].ToString(),
+                    Firma = reader["Firma"] as byte[] // Cargar la firma como arreglo de bytes
+                };
+            }
+
+            conn.Close();
+            return formula;
+        }
+
+        public int ActualizarFormula(FormulaMedica formula)
+        {
+            Conectar();
+            int filasAfectadas = 0;
+
+            try
+            {
+                string query = @"UPDATE FormulasMedicas SET 
+                         Paciente = @paciente,
+                         Edad = @edad,
+                         Fecha = @fecha,
+                         Hora = @hora,
+                         Medico = @medico,
+                         Documento = @documento,
+                         Medicamentos = @medicamentos,
+                         Observaciones = @observaciones,
+                         Firma = @Firma,
+                         Anotaciones = @anotaciones
+                         WHERE NumeroHistoria = @numeroHistoria";
+
+                cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@paciente", formula.NombrePaciente);
+                cmd.Parameters.AddWithValue("@edad", formula.EdadPaciente);
+                cmd.Parameters.AddWithValue("@fecha", formula.Fecha);
+                cmd.Parameters.AddWithValue("@hora", formula.Hora);
+                cmd.Parameters.AddWithValue("@medico", formula.Doctor);
+                cmd.Parameters.AddWithValue("@documento", formula.DocumentoPaciente);
+                cmd.Parameters.AddWithValue("@medicamentos", formula.Medicamentos);
+                cmd.Parameters.AddWithValue("@observaciones", formula.Observaciones);
+                cmd.Parameters.AddWithValue("@anotaciones", formula.Anotaciones);
+                cmd.Parameters.AddWithValue("@numeroHistoria", formula.NumeroHistoriaClinica);
+
+                // Si la firma no es null, agrega el parámetro para la firma
+                if (formula.Firma != null)
+                {
+                    cmd.Parameters.AddWithValue("@Firma", formula.Firma);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@Firma", DBNull.Value); // Si no hay firma, usa DBNull
+                }
+
+                filasAfectadas = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return filasAfectadas;
+        }
 
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FormuSalud
 {
-    internal class FormulaMedica
+    public class FormulaMedica
     {
         public DateTime Fecha { get; set; }
         public string Medicamentos { get; set; }

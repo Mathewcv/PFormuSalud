@@ -68,6 +68,7 @@
             this.btnFirmar.TabIndex = 75;
             this.btnFirmar.Text = "Cargar Firma";
             this.btnFirmar.UseVisualStyleBackColor = false;
+            this.btnFirmar.Click += new System.EventHandler(this.btnFirmar_Click);
             // 
             // pbFirma
             // 
@@ -106,6 +107,7 @@
             this.btnEditar.TabIndex = 71;
             this.btnEditar.Text = " Editar Formula";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // txtAnotaciones
             // 
