@@ -13,6 +13,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.IO.Image;
 using System.IO;
+using Image = System.Drawing.Image;
 
 namespace FormuSalud
 {
@@ -161,16 +162,30 @@ namespace FormuSalud
                     {
                         Document document = new Document(pdf);
 
-                        // Agregar un título
-                        document.Add(new Paragraph("Fórmula Médica"));
+                        // Encabezado con nombre de la EPS y aplicación
+                        document.Add(new Paragraph("Eps Sura")
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                            .SetFontSize(18)
+                            .SetBold());
+                        document.Add(new Paragraph("Aplicación: FormuSalud")
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                            .SetFontSize(14)
+                            .SetItalic());
+                        document.Add(new Paragraph("\n")); // Espacio vacío
 
-                        // Crear la tabla con 3 columnas
+                        // Información de la fórmula médica
+                        document.Add(new Paragraph("Fórmula Médica")
+                            .SetFontSize(16)
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
+                            .SetBold());
+                        document.Add(new Paragraph("\n"));
+
+                        // Agregar detalles de la fórmula (Medicamento, Fecha, Estado)
                         Table table = new Table(3);
                         table.AddHeaderCell("Medicamento");
                         table.AddHeaderCell("Fecha");
                         table.AddHeaderCell("Estado");
 
-                        // Verificar que los valores no estén vacíos antes de agregarlos
                         if (!string.IsNullOrEmpty(medicamento) && !string.IsNullOrEmpty(fecha) && !string.IsNullOrEmpty(estado))
                         {
                             table.AddCell(medicamento);
@@ -185,6 +200,15 @@ namespace FormuSalud
 
                         // Agregar la tabla al documento
                         document.Add(table);
+
+                        // Agregar observaciones y anotaciones adicionales
+                        document.Add(new Paragraph("\n"));
+                        document.Add(new Paragraph("Observaciones: " + estado)
+                            .SetFontSize(12)
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
+                        document.Add(new Paragraph("Anotaciones: " + medicamento)
+                            .SetFontSize(12)
+                            .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
                     }
                 }
 
@@ -195,6 +219,7 @@ namespace FormuSalud
                 MessageBox.Show($"Error al generar el PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
     }
 }
