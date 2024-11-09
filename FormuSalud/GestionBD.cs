@@ -9,8 +9,6 @@ using System.Windows.Forms;
 using System.Drawing; // Para las Image
 using System.IO; // para el MemoryStream
 
-
-
 namespace FormuSalud
 {
     internal class GestionBD
@@ -129,7 +127,7 @@ namespace FormuSalud
             List<FormulaMedica> formulas = new List<FormulaMedica>();
 
             string query = "SELECT Fecha, Medicamentos FROM FormulasMedicas " +
-                           "INNER JOIN Usuarios ON FormulasMedicas.Paciente = Usuarios.IdUsuario " +
+                           "INNER JOIN Usuarios ON FormulasMedicas.Paciente = Usuarios.Nombre " +
                            "WHERE Usuarios.Documento = @documento";
 
             if (fechaBusqueda != null)
@@ -192,39 +190,39 @@ namespace FormuSalud
 
             try
             {
-                // Consulta SQL actualizada para incluir el campo Firma
-                string query = @"INSERT INTO FormulasMedicas (Paciente, Edad, NumeroHistoria, Fecha, Hora, Medico, Documento, Medicamentos, Observaciones, Anotaciones, Firma) 
-                         VALUES ((SELECT IdUsuario FROM Usuarios WHERE Documento = @DocumentoPaciente), @EdadPaciente, @NumeroHistoriaClinica, @Fecha, @Hora, 
-                         (SELECT IdUsuario FROM Usuarios WHERE Nombre = @Doctor), @DocumentoPaciente, @Medicamentos, @Observaciones, @Anotaciones, @Firma)";
+                string query = @"INSERT INTO FormulasMedicas 
+                         (Paciente, Edad, NumeroHistoria, Fecha, Hora, Medico, Documento, Medicamentos, Observaciones, Anotaciones, Firma)
+                         VALUES 
+                         (@Paciente, @Edad, @NumeroHistoria, @Fecha, @Hora, @Medico, @Documento, @Medicamentos, @Observaciones, @Anotaciones, @Firma)";
 
-                cmd = new SqlCommand(query, conn);
+                using (SqlCommand comando = new SqlCommand(query, conn))
+                {
+                    // Agregar parámetros con los datos de la fórmula médica
+                    comando.Parameters.AddWithValue("@Paciente", nuevaFormula.NombrePaciente);
+                    comando.Parameters.AddWithValue("@Edad", nuevaFormula.EdadPaciente);
+                    comando.Parameters.AddWithValue("@NumeroHistoria", nuevaFormula.NumeroHistoriaClinica);
+                    comando.Parameters.AddWithValue("@Fecha", nuevaFormula.Fecha);
+                    comando.Parameters.AddWithValue("@Hora", nuevaFormula.Hora);
+                    comando.Parameters.AddWithValue("@Medico", nuevaFormula.Doctor);
+                    comando.Parameters.AddWithValue("@Documento", nuevaFormula.DocumentoPaciente);
+                    comando.Parameters.AddWithValue("@Medicamentos", nuevaFormula.Medicamentos);
+                    comando.Parameters.AddWithValue("@Observaciones", nuevaFormula.Observaciones ?? string.Empty);
+                    comando.Parameters.AddWithValue("@Anotaciones", nuevaFormula.Anotaciones ?? string.Empty);
+                    comando.Parameters.AddWithValue("@Firma", nuevaFormula.Firma); // Firma en formato byte[]
 
-                cmd.Parameters.AddWithValue("@EdadPaciente", nuevaFormula.EdadPaciente);
-                cmd.Parameters.AddWithValue("@NumeroHistoriaClinica", nuevaFormula.NumeroHistoriaClinica);
-                cmd.Parameters.AddWithValue("@Fecha", nuevaFormula.Fecha);
-                cmd.Parameters.AddWithValue("@Hora", nuevaFormula.Hora);
-                cmd.Parameters.AddWithValue("@Doctor", nuevaFormula.Doctor);
-                cmd.Parameters.AddWithValue("@DocumentoPaciente", nuevaFormula.DocumentoPaciente);
-                cmd.Parameters.AddWithValue("@Medicamentos", nuevaFormula.Medicamentos);
-                cmd.Parameters.AddWithValue("@Observaciones", nuevaFormula.Observaciones);
-                cmd.Parameters.AddWithValue("@Anotaciones", nuevaFormula.Anotaciones);
-
-                // Añadir el parámetro para la firma, asegurando que se maneje el caso donde la firma es nula
-                cmd.Parameters.AddWithValue("@Firma", (object)nuevaFormula.Firma ?? DBNull.Value);
-
-                filasAfectadas = cmd.ExecuteNonQuery();
+                    filasAfectadas = comando.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
-                mensaje = ex.Message;
-                MessageBox.Show($"Error al generar la fórmula: {mensaje}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al generar la fórmula: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 conn.Close();
             }
 
-            return filasAfectadas; // Devuelve el número de filas afectadas
+            return filasAfectadas;
         }
 
 

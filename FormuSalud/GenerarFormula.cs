@@ -78,33 +78,33 @@ namespace FormuSalud
                 return;
             }
 
-            // Crear el objeto de la fórmula
+            // Crear una instancia de FormulaMedica con los datos ingresados
             FormulaMedica nuevaFormula = new FormulaMedica
             {
                 NombrePaciente = txtPaciente.Text,
-                EdadPaciente = int.Parse(txtEdad.Text),
+                EdadPaciente = edad,
                 NumeroHistoriaClinica = txtNumH.Text,
                 Fecha = dateFecha.Value,
-                Hora = TimeSpan.Parse(txtHora.Text),
+                Hora = hora,
                 Doctor = txtDoctor.Text,
                 DocumentoPaciente = txtDocumento.Text,
                 Medicamentos = txtMedicamentos.Text,
                 Observaciones = txtObservaciones.Text,
                 Anotaciones = txtAnotaciones.Text,
-                Firma = pbFirma.Image != null ? ConvertImageToBytes(pbFirma.Image) : null // Convierte la firma a bytes
+                Firma = ConvertImageToBytes(pbFirma.Image) // Convertir la imagen de la firma a bytes
             };
 
-            // Llama al método para guardar la fórmula en la base de datos
+            // Generar la fórmula médica
             int resultado = gestionBD.GenerarFormula(nuevaFormula);
 
-            if (resultado > 0) // Si la fórmula se guarda con éxito.
+            if (resultado > 0)
             {
-                MessageBox.Show("Fórmula médica generada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close(); // Cierra el formulario.
+                MessageBox.Show("Fórmula generada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close(); // Cierra el formulario si la fórmula se genera con éxito
             }
             else
             {
-                MessageBox.Show("Error al generar la fórmula médica. Intenta de nuevo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Hubo un problema al generar la fórmula.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
